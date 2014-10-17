@@ -3,6 +3,7 @@ package com.example.william.courserater;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -37,10 +38,10 @@ public class Main extends Activity {
         * If you want to add fragments, here is the DrawerItems
          */
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_nav, "Courses");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_nav, "My Profile");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_nav, "Settings");
-        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_nav, "About");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.courses));
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.my_profile));
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.settings));
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.about));
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this,R.layout.listview_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);
@@ -121,7 +122,9 @@ public class Main extends Activity {
                 fragment = new CourseFragment();
                 break;
             case 1:
-                fragment = new MyProfileFragment();
+                //fragment = new MyProfileFragment();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
             case 2:
                 fragment = new SettingsFragment();
@@ -135,7 +138,7 @@ public class Main extends Activity {
         }
 
         if (fragment != null) {
-                FragmentManager fragmentManager = fragment.getFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
             mDrawerList.setItemChecked(position, true);

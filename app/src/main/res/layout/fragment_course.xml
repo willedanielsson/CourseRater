@@ -1,23 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.william.courserater.CourseFragment">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/txtLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="course View"
-        android:textSize="16dp" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select university"
+        android:textSize="@dimen/headline"
+        android:id="@+id/textView" />
 
-    <ImageView
+
+    <SearchView
+        android:id="@+id/search_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_nav"
-        android:layout_gravity="center" />
-</FrameLayout>
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+
+
+
+</LinearLayout>

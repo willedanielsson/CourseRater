@@ -1,0 +1,87 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greenish"
+    >
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:weightSum="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/loginGreetingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:textStyle="bold"
+            android:textSize="@dimen/headline"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/marginTopStandard"
+        />
+        <!-- The line -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/greyish"
+        />
+
+        <EditText
+            android:id="@+id/editUsername"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="Email"
+            android:background="@drawable/edit_text_box"
+            android:layout_marginRight="@dimen/marginSideStandard"
+            android:layout_marginLeft="@dimen/marginSideStandard"
+            android:layout_marginTop="@dimen/marginTopStandard"
+            android:textSize="@dimen/subline"
+            android:inputType="textEmailAddress"
+            >
+
+            <requestFocus/>
+        </EditText>
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="Password"
+            android:background="@drawable/edit_text_box2"
+            android:layout_marginRight="@dimen/marginSideStandard"
+            android:layout_marginLeft="@dimen/marginSideStandard"
+            android:textSize="@dimen/subline"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="@dimen/buttonWidth"
+            android:layout_height="@dimen/buttonHeight"
+            android:layout_marginRight="@dimen/marginSideStandard"
+            android:layout_marginLeft="@dimen/marginSideStandard"
+            android:layout_marginTop="@dimen/marginTopStandard"
+            android:textStyle="bold"
+            android:text="Login"
+            android:background="@color/greyish"
+            android:textColor="@color/whiteish"
+
+            android:onClick="login" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
