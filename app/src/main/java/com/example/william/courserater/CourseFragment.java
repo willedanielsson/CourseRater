@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -35,8 +36,6 @@ public class CourseFragment extends Fragment implements SearchView.OnQueryTextLi
     private ListView mListView;
     private ArrayAdapter<String> mAdapter;
 
-    private final String[] mStrings = Universities.universitiesStrings;
-
     public CourseFragment() {
         // Required empty public constructor
     }
@@ -52,34 +51,25 @@ public class CourseFragment extends Fragment implements SearchView.OnQueryTextLi
 
         String data;
         ArrayList<String> arrayList = new ArrayList<String>();
-        arrayList.add("Test");
-        arrayList.add("Test2");
-        arrayList.add("TEST4");
-        arrayList.add("Test3");
 
-
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mStrings);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         mListView = (ListView) rootView.findViewById(R.id.list_view);
 
-/*
+
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://www.ashiya.se/connect2.php");
+            HttpGet request = new HttpGet("http://www.ashiya.se/app/connect.php");
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
             data = EntityUtils.toString(entity);
-            Log.e("DATA ", data);
-            System.out.println(data);
 
             try {
                 JSONArray json = new JSONArray(data);
-                Log.e("JSON", json.toString());
                 for (int i = 0; i < json.length(); i++) {
-                    JSONObject object = json.getJSONObject(i);
-                    String universityName = object.getString("name");
-                    Log.e("UNIVERSTITET NAMN", universityName);
+                    String universityName = json.get(i).toString();
                     arrayList.add(universityName);
                     mListView.setAdapter(mAdapter);
+
                 }
             }catch (JSONException e){
                 e.printStackTrace();
@@ -90,9 +80,7 @@ public class CourseFragment extends Fragment implements SearchView.OnQueryTextLi
             } catch (IOException e) {
                 Log.d("HTTPCLIENT", e.getLocalizedMessage());
          }
-*/
-        mListView.setAdapter(mAdapter);
-        mListView.setTextFilterEnabled(true);
+
         mListView.setVisibility(View.VISIBLE);
         mListView.setOnScrollListener(new AbsListView.OnScrollListener(){
 
@@ -140,9 +128,10 @@ public class CourseFragment extends Fragment implements SearchView.OnQueryTextLi
            mListView.clearTextFilter();
            System.out.println("Tom");
             //mAdapter.getFilter().filter(null);
+            mAdapter.getFilter().filter(null);
             mListView.setVisibility(View.INVISIBLE);
         }else{
-            //mAdapter.getFilter().filter(newText);
+            mAdapter.getFilter().filter(newText);
             mListView.setVisibility(View.VISIBLE);
             mListView.setFilterText(newText.toString());
         }
