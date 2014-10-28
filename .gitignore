@@ -37,9 +37,12 @@ hs_err_pid*
 bin/
 gen/
 
-# Gradle files
+# Android files
 .gradle/
 build/
+*.gradle
+.idea/*
+*.iml
 
 # Local configuration file (sdk path, etc)
 local.properties

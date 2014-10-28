@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="headline">40sp</dimen>
-    <dimen name="subline">25sp</dimen>
+    <dimen name="subline">20sp</dimen>
+    <dimen name="editTextHeight">60dp</dimen>
     <dimen name="marginTopStandard">20dp</dimen>
     <dimen name="marginSideStandard">15dp</dimen>
     <dimen name="buttonWidth">180dp</dimen>

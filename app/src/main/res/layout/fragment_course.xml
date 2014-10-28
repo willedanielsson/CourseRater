@@ -1,28 +1,66 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/university_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select university"
         android:textSize="@dimen/headline"
-        android:id="@+id/textView" />
+        />
 
 
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/university_edit_text"
+        android:layout_width="320dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:hint="Search university"
+        android:background="@drawable/edit_text_box3"
+        android:layout_marginLeft="@dimen/marginSideStandard"
+        android:layout_marginStart="@dimen/marginSideStandard"
+        android:textSize="@dimen/subline"
+        />
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/university_list_view"
         android:layout_width="match_parent"
-        android:layout_height="120dp" />
+        android:layout_height="120dp"
+        />
+
+    <TextView
+        android:id="@+id/course_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select university"
+        android:textSize="@dimen/headline"
+        />
 
 
+    <EditText
+        android:id="@+id/course_edit_text"
+        android:layout_width="160dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:hint="Search course"
+        android:background="@drawable/edit_text_box3"
+        android:layout_marginLeft="@dimen/marginSideStandard"
+        android:layout_marginStart="@dimen/marginSideStandard"
+        android:textSize="@dimen/subline"
+        />
 
+    <ListView
+        android:id="@+id/course_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        />
 
 </LinearLayout>
+</ScrollView>
