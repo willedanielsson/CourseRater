@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.loopj.android.http.*;
 
@@ -27,8 +28,8 @@ public class CourseFragment extends Fragment{
     private EditText universityEditText;
     private ListView universityListView;
 
-    private EditText courseEditText;
     private ListView courseListView;
+    private EditText courseEditText;
 
     public CourseFragment() {
         // Required empty public constructor
@@ -48,14 +49,10 @@ public class CourseFragment extends Fragment{
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
 
-         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
-         final ArrayList<String> courseArrayList = new ArrayList<String>();
-            courseArrayList.add("Hej");
-            courseArrayList.add("Hej2");
-            courseArrayList.add("Hej3");
-         final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
-         courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
-         courseListView.setAdapter(courseAdapter);
+        courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
+        courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
+        courseListView.setVisibility(View.VISIBLE);
+
 
          try{
             HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
@@ -67,9 +64,8 @@ public class CourseFragment extends Fragment{
                         for (int i = 0; i < json.length(); i++) {
                             String universityName = json.get(i).toString();
                             universityArrayList.add(universityName);
-                            universityListView.setAdapter(universityAdapter);
-
                         }
+                        universityListView.setAdapter(universityAdapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -78,7 +74,7 @@ public class CourseFragment extends Fragment{
                 // Do something with the response
             });
         }catch (Exception e){
-            Log.e("Fel", e.toString());
+            Log.e("UniversityHTTP", e.toString());
         }
 
         universityListView.setVisibility(View.INVISIBLE);
@@ -87,8 +83,10 @@ public class CourseFragment extends Fragment{
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String itemText = (String)adapterView.getItemAtPosition(position);
-                universityEditText.setText(itemText);
+                String clickedUniversity = (String)adapterView.getItemAtPosition(position);
+                universityEditText.setText(clickedUniversity);
+                getCoursesForChosenUniversity(clickedUniversity);
+
                 universityListView.setVisibility(View.INVISIBLE);
 
             }
@@ -114,64 +112,46 @@ public class CourseFragment extends Fragment{
             }
         });
 
-
-
-
-
-
         return rootView;
 
     }
 
+    public void getCoursesForChosenUniversity(String chosenUniversity) {
+        final ArrayList<String> courseArrayList = new ArrayList<String>();
+
+        final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
+        courseListView.setAdapter(courseAdapter);
+
+        RequestParams params = new RequestParams();
+        params.put("chosenUniversity", chosenUniversity);
+
+        try {
+            HttpClient.get("getCoursesForUniversity.php", params, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            String universityName = json.get(i).toString();
+                            courseArrayList.add(universityName);
+                        }
+                        courseListView.setAdapter(courseAdapter);
+
+                    } catch (JSONException e) {
+                        Log.e("JSONEXCPETION", e.toString());
+                    }
+
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String string, Throwable e){
+                   Log.e("OnFailure", e.toString());
+
+                }
+            });
+
+        }catch (Exception e){
+            Log.e("HTTPClient", e.toString());
+        }
+
+    }
+
 }
-
-/*
-
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://www.ashiya.se/app/connect.php");
-            HttpResponse response = client.execute(request);
-            HttpEntity entity = response.getEntity();
-            data = EntityUtils.toString(entity);
-
-            try {
-                JSONArray json = new JSONArray(data);
-                for (int i = 0; i < json.length(); i++) {
-                    String universityName = json.get(i).toString();
-                    arrayList.add(universityName);
-                    universityListView.setAdapter(mAdapter);
-
-                }
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            } catch (ClientProtocolException e) {
-                Log.d("HTTPCLIENT", e.getLocalizedMessage());
-            } catch (IOException e) {
-                Log.d("HTTPCLIENT", e.getLocalizedMessage());
-         }
- */
-
-   /*
-        universityListView.setOnScrollListener(new AbsListView.OnScrollListener(){
-
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-                switch (scrollState) {
-                    case SCROLL_STATE_IDLE:
-                        //Scroll stop, show search
-                        universityEditText.setVisibility(View.VISIBLE);
-                        break;
-                    case SCROLL_STATE_TOUCH_SCROLL:
-                        universityEditText.setVisibility(View.INVISIBLE);
-
-                }
-
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i2, int i3) {
-
-            }
-        });
-        */
