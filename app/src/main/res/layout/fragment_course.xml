@@ -31,7 +31,8 @@
 
     <ListView
         android:id="@+id/university_list_view"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
+        android:background="@color/greenish"
         android:layout_height="120dp"
         />
 

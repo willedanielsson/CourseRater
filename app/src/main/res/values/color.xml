@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="greenish">#85FF75</color>
-    <color name="whiteish">#FFFFFF</color>
-    <color name="greyish">#BABABA</color>
+    <color name="greenish">#2ECC71</color>
+    <color name="whiteish">#E1FDED</color>
+    <color name="greyish">#009943</color>
 </resources>

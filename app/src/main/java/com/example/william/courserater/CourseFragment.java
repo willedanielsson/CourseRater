@@ -48,14 +48,17 @@ public class CourseFragment extends Fragment{
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
 
-        courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
-        final ArrayList<String> courseArrayList = new ArrayList<String>();
-        final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
-        courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
+         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
+         final ArrayList<String> courseArrayList = new ArrayList<String>();
+            courseArrayList.add("Hej");
+            courseArrayList.add("Hej2");
+            courseArrayList.add("Hej3");
+         final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
+         courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
+         courseListView.setAdapter(courseAdapter);
 
-
-        try {
-            com.example.william.courserater.HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
+         try{
+            HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
@@ -121,6 +124,7 @@ public class CourseFragment extends Fragment{
     }
 
 }
+
 /*
 
             HttpClient client = new DefaultHttpClient();
