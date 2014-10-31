@@ -3,6 +3,7 @@ package com.example.william.courserater;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -76,6 +77,16 @@ public class Main extends Activity {
 
     }
 
+    /*/
+
+     */
+    public void startNewCourseFragment(String course){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment newCourseInformationFragment = CourseInformationFragment.newInstance(course);
+        transaction.replace(R.id.content_frame, newCourseInformationFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,7 +130,8 @@ public class Main extends Activity {
 
         switch (position) {
             case 0:
-                fragment = new CourseFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                 fragment = CourseFragment.newInstance();
                 break;
             case 1:
                 //fragment = new MyProfileFragment();

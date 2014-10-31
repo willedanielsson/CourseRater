@@ -7,7 +7,8 @@
     <dimen name="editTextHeight">60dp</dimen>
     <dimen name="marginTopStandard">20dp</dimen>
     <dimen name="marginSideStandard">15dp</dimen>
-    <dimen name="buttonWidth">180dp</dimen>
+    <dimen name="buttonWidth">140dp</dimen>
     <dimen name="buttonHeight">60dp</dimen>
+    <dimen name="buttonTextSize">29sp</dimen>
     <dimen name="corner">5dp</dimen>
 </resources>

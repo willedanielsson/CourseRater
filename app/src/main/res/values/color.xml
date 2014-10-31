@@ -2,5 +2,6 @@
 <resources>
     <color name="greenish">#2ECC71</color>
     <color name="whiteish">#E1FDED</color>
-    <color name="greyish">#009943</color>
+    <color name="white">#FFF</color>
+    <color name="greyish">#C0C0C0</color>
 </resources>

@@ -6,14 +6,15 @@
             android:shape="rectangle"
             >
 
-            <solid android:color="@color/whiteish"/>
+            <solid android:color="@color/white"/>
             <corners
                 android:topLeftRadius = "@dimen/corner"
                 android:topRightRadius = "@dimen/corner"
-                android:bottomLeftRadius="@dimen/corner"
-                android:bottomRightRadius="@dimen/corner"
                 />
+            <stroke android:width="1dip" android:color="@color/greyish" />
 
         </shape>
+
     </item>
+
 </layer-list>

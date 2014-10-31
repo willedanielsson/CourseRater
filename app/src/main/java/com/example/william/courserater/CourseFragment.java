@@ -1,5 +1,6 @@
 package com.example.william.courserater;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -39,22 +41,38 @@ public class CourseFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_course, container, false);
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        /*Initialisation of University related*/
         universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
         final ArrayList<String> universityArrayList = new ArrayList<String>();
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
+        universityListView.setVisibility(View.GONE);
 
+        /*Initialisation of Course related*/
+        final ArrayList<String> courseArrayList = new ArrayList<String>();
+        final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
         courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
-        courseListView.setVisibility(View.VISIBLE);
+        courseListView.setVisibility(View.GONE);
 
+        Button viewCourseInformationButton = (Button) rootView.findViewById(R.id.viewCourseInformationButton);
+        viewCourseInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Fragment newCourseInformationFragment = CourseInformationFragment.newInstance("TANA21");
+                //newCourseInformationFragment =
+                String selectedCourse = courseEditText.getText().toString();
+                ((Main)getActivity()).startNewCourseFragment(selectedCourse);
+            }
+        });
 
-         try{
+        /*
+         * University part
+         */
+        try{
             HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
 
                 @Override
@@ -77,49 +95,83 @@ public class CourseFragment extends Fragment{
             Log.e("UniversityHTTP", e.toString());
         }
 
-        universityListView.setVisibility(View.INVISIBLE);
-
         universityListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String clickedUniversity = (String)adapterView.getItemAtPosition(position);
                 universityEditText.setText(clickedUniversity);
-                getCoursesForChosenUniversity(clickedUniversity);
+                getCoursesForChosenUniversity(clickedUniversity, courseAdapter, courseArrayList);
 
-                universityListView.setVisibility(View.INVISIBLE);
+                universityListView.setVisibility(View.GONE);
 
             }
         });
 
         universityEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {}
 
-            }
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 universityAdapter.getFilter().filter(charSequence);
                 if(charSequence.length()==0){
-                    universityListView.setVisibility(View.INVISIBLE);
+                    universityListView.setVisibility(View.GONE);
                 }else{
                     universityListView.setVisibility(View.VISIBLE);
                 }
             }
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable editable) {}
+        });
 
+
+        /*
+         * Course part
+         */
+
+        courseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String clickedCourse = (String)adapterView.getItemAtPosition(position);
+                courseEditText.setText(clickedCourse);
+                courseListView.setVisibility(View.GONE);
             }
         });
+
+        courseEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                courseAdapter.getFilter().filter(charSequence);
+                if(charSequence.length()==0){
+                    courseListView.setVisibility(View.GONE);
+                }else{
+                    courseListView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
 
         return rootView;
 
     }
 
-    public void getCoursesForChosenUniversity(String chosenUniversity) {
-        final ArrayList<String> courseArrayList = new ArrayList<String>();
+    public static CourseFragment newInstance() {
+        CourseFragment courseFragment = new CourseFragment();
+        return courseFragment;
 
-        final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
+    }
+
+    /*
+     *
+     */
+    public void getCoursesForChosenUniversity(String chosenUniversity, final ArrayAdapter courseAdapter, final ArrayList<String> courseArrayList) {
         courseListView.setAdapter(courseAdapter);
 
         RequestParams params = new RequestParams();
