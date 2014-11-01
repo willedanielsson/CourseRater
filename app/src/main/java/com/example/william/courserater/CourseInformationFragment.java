@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.util.Iterator;
 
 public class CourseInformationFragment extends Fragment {
 
+    private ListView informationListView;
 
     public CourseInformationFragment() {
         // Required empty public constructor
@@ -39,13 +41,15 @@ public class CourseInformationFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        final ArrayList<String> informationArrayList = new ArrayList<String>();
-        final ArrayAdapter<String> informationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, informationArrayList);
-        final ListView informationListView = (ListView) rootView.findViewById(R.id.courseInformation_list_view);
+        String courseName = getArguments().getString("courseName");
 
+        final ArrayList<Item> testArrayList = new ArrayList<Item>();
+        final MyAdapter adapter = new MyAdapter(rootView.getContext(), testArrayList);
+        //final ArrayAdapter<String> informationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, informationPartsArrayList);
+        informationListView = (ListView) rootView.findViewById(R.id.courseInformation_list_view);
+        //informationListView.setAdapter(informationAdapter);
 
-       String courseName = getArguments().getString("courseName");
-
+        final ArrayList<String> informationRatingArrayList = new ArrayList<String>();
         RequestParams params = new RequestParams();
         params.put("courseName", courseName);
 
@@ -60,27 +64,41 @@ public class CourseInformationFragment extends Fragment {
                         while ( keys.hasNext()){
                             String key = (String)keys.next();
                             String value = test.getString(key);
-                           System.out.println(key);
-                           System.out.println(value);
-                           informationArrayList.add(value);
+                            System.out.println(key);
+                            informationRatingArrayList.add(value);
                         }
-                        informationListView.setAdapter(informationAdapter);
+                        createInformationList(informationRatingArrayList, testArrayList, adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String string, Throwable e){
                     Log.e("OnFailure", e.toString());
 
                 }
+
             });
         }catch (Exception e){
             Log.e("HTTPcourseInf", e.toString());
         }
 
         return rootView;
+    }
+
+    private void createInformationList(ArrayList<String> informationRatingArrayList, ArrayList<Item> testArrayList, ArrayAdapter adapter) {
+        testArrayList.add(new Item("Usefulness",informationRatingArrayList.get(3)));
+        testArrayList.add(new Item("Exam",informationRatingArrayList.get(5)));
+        testArrayList.add(new Item("Lectures",informationRatingArrayList.get(6)));
+        testArrayList.add(new Item("Lessons", informationRatingArrayList.get(0)));
+        testArrayList.add(new Item("Labaratory",informationRatingArrayList.get(2)));
+        testArrayList.add(new Item("Seminar",informationRatingArrayList.get(8)));
+        testArrayList.add(new Item("Project",informationRatingArrayList.get(7)));
+        testArrayList.add(new Item("Homeassignment",informationRatingArrayList.get(1)));
+        testArrayList.add(new Item("Case",informationRatingArrayList.get(4)));
+
+
+        informationListView.setAdapter(adapter);
     }
 
     public static CourseInformationFragment newInstance(String courseName) {
