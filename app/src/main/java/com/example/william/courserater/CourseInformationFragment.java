@@ -44,9 +44,7 @@ public class CourseInformationFragment extends Fragment {
         final ListView informationListView = (ListView) rootView.findViewById(R.id.courseInformation_list_view);
 
 
-        String courseName = getArguments().getString("courseName");
-        TextView textView = (TextView)rootView.findViewById(R.id.textViewTest);
-        textView.setText(courseName);
+       String courseName = getArguments().getString("courseName");
 
         RequestParams params = new RequestParams();
         params.put("courseName", courseName);
@@ -54,15 +52,19 @@ public class CourseInformationFragment extends Fragment {
         try{
             HttpClient.get("getCourseInformation.php", params, new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-
+                public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                     try {
-                        for (int i = 0; i < json.length(); i++) {
-                            String courseInformation = json.get(i).toString();
-                            System.out.println(courseInformation);
-                            //informationArrayList.add(courseInformation);
+                        JSONArray ratingsArray = (JSONArray) json.get("Ratings");
+                        JSONObject test = ratingsArray.getJSONObject(0);
+                        Iterator<?> keys = test.keys();
+                        while ( keys.hasNext()){
+                            String key = (String)keys.next();
+                            String value = test.getString(key);
+                           System.out.println(key);
+                           System.out.println(value);
+                           informationArrayList.add(value);
                         }
-                        //informationListView.setAdapter(informationAdapter);
+                        informationListView.setAdapter(informationAdapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
