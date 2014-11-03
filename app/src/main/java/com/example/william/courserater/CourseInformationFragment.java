@@ -22,6 +22,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +31,10 @@ import java.util.Iterator;
 public class CourseInformationFragment extends Fragment {
 
     private ListView informationListView;
+    private TextView courseNameTextView;
+    private TextView courseAverageRatingTextView;
+    public final Float sumOfValues= 0.0f;
+    private boolean initRun = true;
 
     public CourseInformationFragment() {
         // Required empty public constructor
@@ -43,13 +48,19 @@ public class CourseInformationFragment extends Fragment {
 
         String courseName = getArguments().getString("courseName");
 
-        final ArrayList<Item> testArrayList = new ArrayList<Item>();
-        final MyAdapter adapter = new MyAdapter(rootView.getContext(), testArrayList);
-        //final ArrayAdapter<String> informationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, informationPartsArrayList);
-        informationListView = (ListView) rootView.findViewById(R.id.courseInformation_list_view);
-        //informationListView.setAdapter(informationAdapter);
+        courseNameTextView = (TextView) rootView.findViewById(R.id.courseName_text_view);
+        courseNameTextView.setText(courseName);
 
-        final ArrayList<String> informationRatingArrayList = new ArrayList<String>();
+        courseAverageRatingTextView = (TextView) rootView.findViewById(R.id.course_average_rating);
+
+        /*
+         * List of parts of the course with their values from database
+         */
+        final ArrayList<Item> informationArrayList = new ArrayList<Item>();
+        final MyAdapter adapter = new MyAdapter(rootView.getContext(), informationArrayList);
+        informationListView = (ListView) rootView.findViewById(R.id.courseInformation_list_view);
+        final ArrayList<Float> informationRatingArrayList = new ArrayList<Float>();
+
         RequestParams params = new RequestParams();
         params.put("courseName", courseName);
 
@@ -59,15 +70,15 @@ public class CourseInformationFragment extends Fragment {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                     try {
                         JSONArray ratingsArray = (JSONArray) json.get("Ratings");
-                        JSONObject test = ratingsArray.getJSONObject(0);
-                        Iterator<?> keys = test.keys();
+                        JSONObject JSONObject = ratingsArray.getJSONObject(0);
+                        Iterator<?> keys = JSONObject.keys();
                         while ( keys.hasNext()){
                             String key = (String)keys.next();
-                            String value = test.getString(key);
-                            System.out.println(key);
+                            Float value = Float.parseFloat(JSONObject.getString(key));
+
                             informationRatingArrayList.add(value);
                         }
-                        createInformationList(informationRatingArrayList, testArrayList, adapter);
+                        createInformationList(informationRatingArrayList, informationArrayList, adapter, sumOfValues);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -86,17 +97,60 @@ public class CourseInformationFragment extends Fragment {
         return rootView;
     }
 
-    private void createInformationList(ArrayList<String> informationRatingArrayList, ArrayList<Item> testArrayList, ArrayAdapter adapter) {
-        testArrayList.add(new Item("Usefulness",informationRatingArrayList.get(3)));
-        testArrayList.add(new Item("Exam",informationRatingArrayList.get(5)));
-        testArrayList.add(new Item("Lectures",informationRatingArrayList.get(6)));
-        testArrayList.add(new Item("Lessons", informationRatingArrayList.get(0)));
-        testArrayList.add(new Item("Labaratory",informationRatingArrayList.get(2)));
-        testArrayList.add(new Item("Seminar",informationRatingArrayList.get(8)));
-        testArrayList.add(new Item("Project",informationRatingArrayList.get(7)));
-        testArrayList.add(new Item("Homeassignment",informationRatingArrayList.get(1)));
-        testArrayList.add(new Item("Case",informationRatingArrayList.get(4)));
-
+    private void createInformationList(ArrayList<Float> informationRatingArrayList, ArrayList<Item> informationArrayList, ArrayAdapter adapter, Float sumOfValues) {
+        if(informationRatingArrayList.get(3)!=0){
+            informationArrayList.add(new Item("Usefulness", informationRatingArrayList.get(3)));
+             //getSum(informationRatingArrayList.get(3));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(3);
+        }
+        if(informationRatingArrayList.get(5)!=0){
+            informationArrayList.add(new Item("Exam", informationRatingArrayList.get(5)));
+            //getSum(informationRatingArrayList.get(5));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(5);
+        }
+        if(informationRatingArrayList.get(6)!=0){
+            informationArrayList.add(new Item("Lectures", informationRatingArrayList.get(6)));
+            //getSum(informationRatingArrayList.get(6));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(6);
+        }
+        if(informationRatingArrayList.get(0)!=0){
+            informationArrayList.add(new Item("Lessons", informationRatingArrayList.get(0)));
+            //getSum(informationRatingArrayList.get(0));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(0);
+        }
+        if(informationRatingArrayList.get(2)!=0){
+            informationArrayList.add(new Item("Labaratory", informationRatingArrayList.get(2)));
+            //getSum(informationRatingArrayList.get(2));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(2);
+        }
+        if(informationRatingArrayList.get(8)!=0){
+            informationArrayList.add(new Item("Seminar", informationRatingArrayList.get(8)));
+            //getSum(informationRatingArrayList.get(8));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(8);
+        }
+        if(informationRatingArrayList.get(7)!=0){
+            informationArrayList.add(new Item("Project", informationRatingArrayList.get(7)));
+            //getSum(informationRatingArrayList.get(7));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(7);
+        }
+        if(informationRatingArrayList.get(1)!=0){
+            informationArrayList.add(new Item("Homeassignment", informationRatingArrayList.get(1)));
+            //getSum(informationRatingArrayList.get(1));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(1);
+        }
+        if(informationRatingArrayList.get(4)!=0){
+            informationArrayList.add(new Item("Case", informationRatingArrayList.get(4)));
+            //getSum(informationRatingArrayList.get(4));
+            sumOfValues = sumOfValues+informationRatingArrayList.get(4);
+        }
+        Float averageScore;
+        averageScore = sumOfValues/informationArrayList.size();
+        double result = (double) Math.round(averageScore*10)/10;
+        String resultText = String.valueOf(result);
+        if(initRun==true){
+            courseAverageRatingTextView.setText(resultText);
+            initRun=false;
+        }
 
         informationListView.setAdapter(adapter);
     }

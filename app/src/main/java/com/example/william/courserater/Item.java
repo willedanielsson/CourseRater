@@ -6,9 +6,9 @@ package com.example.william.courserater;
 public class Item {
 
     private String label;
-    private String value;
+    private Float value;
 
-    public Item(String label, String value){
+    public Item(String label, Float value){
         super();
         this.label = label;
         this.value = value;
@@ -21,11 +21,11 @@ public class Item {
         this.label = label;
     }
 
-    public String getValue() {
+    public Float getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Float value) {
         this.value = value;
     }
 

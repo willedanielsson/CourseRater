@@ -6,9 +6,63 @@
     android:layout_height="match_parent"
     tools:context="com.example.william.courserater.CourseInformationFragment">
 
-    <ListView
-        android:id="@+id/courseInformation_list_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal|top" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:background="@color/greyish">
+
+
+        <TextView
+            android:id="@+id/courseName_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/headline"
+            android:layout_marginLeft="@dimen/marginSideStandard"
+            android:text="TANA21"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/generalStarImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star_rating"
+                />
+            <TextView
+                android:id="@+id/course_average_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/generalStarImageView"
+                android:layout_alignTop="@+id/generalStarImageView"
+                android:layout_alignRight="@+id/generalStarImageView"
+                android:layout_alignBottom="@+id/generalStarImageView"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textSize="20dp"
+                />
+        </RelativeLayout>
+        </LinearLayout>
+    <ListView
+        android:id="@+id/courseInformation_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/gradient"
+        android:dividerHeight="3px"
+
+       />
+
+    </LinearLayout>
+
 </FrameLayout>

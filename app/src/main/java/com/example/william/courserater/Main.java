@@ -130,7 +130,6 @@ public class Main extends Activity {
 
         switch (position) {
             case 0:
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                  fragment = CourseFragment.newInstance();
                 break;
             case 1:
@@ -151,7 +150,7 @@ public class Main extends Activity {
 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
 
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);

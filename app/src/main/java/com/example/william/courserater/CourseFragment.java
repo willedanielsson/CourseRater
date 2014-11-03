@@ -27,12 +27,6 @@ import java.util.ArrayList;
 
 public class CourseFragment extends Fragment{
 
-    private EditText universityEditText;
-    private ListView universityListView;
-
-    private ListView courseListView;
-    private EditText courseEditText;
-
     public CourseFragment() {
         // Required empty public constructor
     }
@@ -40,9 +34,15 @@ public class CourseFragment extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        final EditText universityEditText;
+        final ListView universityListView;
+
+        final ListView courseListView;
+        final EditText courseEditText;
+
+
         View rootView = inflater.inflate(R.layout.fragment_course, container, false);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
 
         /*Initialisation of University related*/
         universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
@@ -101,7 +101,7 @@ public class CourseFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String clickedUniversity = (String)adapterView.getItemAtPosition(position);
                 universityEditText.setText(clickedUniversity);
-                getCoursesForChosenUniversity(clickedUniversity, courseAdapter, courseArrayList);
+                getCoursesForChosenUniversity(clickedUniversity, courseAdapter, courseArrayList, courseListView);
 
                 universityListView.setVisibility(View.GONE);
 
@@ -159,19 +159,18 @@ public class CourseFragment extends Fragment{
 
 
         return rootView;
-
     }
 
     public static CourseFragment newInstance() {
         CourseFragment courseFragment = new CourseFragment();
         return courseFragment;
-
     }
+
 
     /*
      *
      */
-    public void getCoursesForChosenUniversity(String chosenUniversity, final ArrayAdapter courseAdapter, final ArrayList<String> courseArrayList) {
+    public void getCoursesForChosenUniversity(String chosenUniversity, final ArrayAdapter courseAdapter, final ArrayList<String> courseArrayList, final ListView courseListView) {
         courseListView.setAdapter(courseAdapter);
 
         RequestParams params = new RequestParams();

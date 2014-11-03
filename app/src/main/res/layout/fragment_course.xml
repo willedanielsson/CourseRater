@@ -7,8 +7,8 @@
 
     <FrameLayout
         android:id="@+id/courseFragmentID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.example.william.courserater.VerticalScrollView
         android:layout_width="match_parent"
@@ -49,6 +49,7 @@
                 android:layout_marginLeft="@dimen/marginSideStandard"
                 android:layout_marginStart="@dimen/marginSideStandard"
                 android:layout_marginBottom="@dimen/marginTopStandard"
+                android:layout_marginTop="-10px"
                 android:background="@drawable/list_border"
                 />
 
@@ -59,6 +60,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginLeft="@dimen/marginSideStandard"
                 android:layout_marginStart="@dimen/marginSideStandard"
+                android:layout_marginTop="-10px"
                 android:text="Select course"
                 android:textSize="@dimen/headline"
                 />
@@ -98,7 +100,7 @@
                         android:textStyle="bold"
                         android:textSize="@dimen/buttonTextSize"
                         android:text="View"
-                        android:background="@color/greyish"
+                        android:background="@drawable/button_shape"
                         android:textColor="@color/whiteish"/>
             </RelativeLayout>
         </LinearLayout>

@@ -36,7 +36,7 @@ public class MyAdapter extends ArrayAdapter<Item> {
         TextView valueView = (TextView) rowView.findViewById(R.id.informationValue);
         // 4. Set the text for textView
         labelView.setText(itemsArrayList.get(position).getLabel());
-        valueView.setText(itemsArrayList.get(position).getValue());
+        valueView.setText(itemsArrayList.get(position).getValue().toString());
 
         return rowView;
     }
