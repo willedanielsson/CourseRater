@@ -83,8 +83,8 @@ public class Main extends Activity {
     public void startNewCourseFragment(String course){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment newCourseInformationFragment = CourseInformationFragment.newInstance(course);
-        transaction.replace(R.id.content_frame, newCourseInformationFragment);
         transaction.addToBackStack(null);
+        transaction.replace(R.id.content_frame, newCourseInformationFragment);
         transaction.commit();
     }
 
@@ -130,7 +130,7 @@ public class Main extends Activity {
 
         switch (position) {
             case 0:
-                 fragment = CourseFragment.newInstance();
+                 fragment = new CourseFragment();
                 break;
             case 1:
                 //fragment = new MyProfileFragment();

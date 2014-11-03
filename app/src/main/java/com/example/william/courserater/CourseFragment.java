@@ -8,6 +8,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,33 +29,61 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class CourseFragment extends Fragment{
+    private EditText universityEditText;
+    private ListView universityListView;
+
+    private ListView courseListView;
+    private EditText courseEditText;
+
+    private ArrayList<String> universityArrayList = new ArrayList<String>();
+    private static final String MYLISTKEY = "myListLabels";
+
+    private ArrayList<String> courseArrayList = new ArrayList<String>();
+    private static final String MYOTHERLISTKEY = "myOtherListLabels";
 
     public CourseFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+        menuInflater.inflate(R.menu.course,menu);
+    }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.add_course:
+                addNewCourse();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        final EditText universityEditText;
-        final ListView universityListView;
+    private void addNewCourse() {
+        System.out.println("Happ");
+    }
 
-        final ListView courseListView;
-        final EditText courseEditText;
+    @Override
+    public final void onSaveInstanceState(Bundle savedState){
+        super.onSaveInstanceState(savedState);
+        savedState.putStringArrayList(MYLISTKEY, universityArrayList);
+        savedState.putStringArrayList(MYOTHERLISTKEY, courseArrayList);
 
+    }
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_course, container, false);
 
 
         /*Initialisation of University related*/
         universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
-        final ArrayList<String> universityArrayList = new ArrayList<String>();
+
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
         universityListView.setVisibility(View.GONE);
 
         /*Initialisation of Course related*/
-        final ArrayList<String> courseArrayList = new ArrayList<String>();
         final ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, courseArrayList);
         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
         courseListView = (ListView) rootView.findViewById(R.id.course_list_view);
@@ -62,8 +93,8 @@ public class CourseFragment extends Fragment{
         viewCourseInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Fragment newCourseInformationFragment = CourseInformationFragment.newInstance("TANA21");
-                //newCourseInformationFragment =
+                universityEditText.setText("");
+
                 String selectedCourse = courseEditText.getText().toString();
                 ((Main)getActivity()).startNewCourseFragment(selectedCourse);
             }
@@ -72,35 +103,40 @@ public class CourseFragment extends Fragment{
         /*
          * University part
          */
-        try{
-            HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
+        if(savedInstanceState != null){
+            universityArrayList = savedInstanceState.getStringArrayList(MYLISTKEY);
+        }else {
+            try {
+                HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
 
-                    try {
-                        for (int i = 0; i < json.length(); i++) {
-                            String universityName = json.get(i).toString();
-                            universityArrayList.add(universityName);
+                        try {
+                            for (int i = 0; i < json.length(); i++) {
+                                String universityName = json.get(i).toString();
+                                universityArrayList.add(universityName);
+                            }
+
+                            universityListView.setAdapter(universityAdapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        universityListView.setAdapter(universityAdapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
                     }
-
-                }
-                // Do something with the response
-            });
-        }catch (Exception e){
-            Log.e("UniversityHTTP", e.toString());
+                    // Do something with the response
+                });
+            } catch (Exception e) {
+                Log.e("UniversityHTTP", e.toString());
+            }
         }
-
         universityListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String clickedUniversity = (String)adapterView.getItemAtPosition(position);
                 universityEditText.setText(clickedUniversity);
+
                 getCoursesForChosenUniversity(clickedUniversity, courseAdapter, courseArrayList, courseListView);
 
                 universityListView.setVisibility(View.GONE);
