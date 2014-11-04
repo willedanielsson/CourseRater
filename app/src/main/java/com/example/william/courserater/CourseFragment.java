@@ -1,9 +1,9 @@
 package com.example.william.courserater;
 
-import android.app.Activity;
+
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.StrictMode;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+
 
 import com.loopj.android.http.*;
 
@@ -60,7 +60,11 @@ public class CourseFragment extends Fragment{
     }
 
     private void addNewCourse() {
-        System.out.println("Happ");
+        if(universityEditText.getText()==null){
+            ((Main)getActivity()).startNewFragment(null, universityArrayList);
+        }else{
+        ((Main)getActivity()).startNewFragment(universityEditText.getText().toString(), universityArrayList);
+        }
     }
 
     @Override
@@ -68,7 +72,6 @@ public class CourseFragment extends Fragment{
         super.onSaveInstanceState(savedState);
         savedState.putStringArrayList(MYLISTKEY, universityArrayList);
         savedState.putStringArrayList(MYOTHERLISTKEY, courseArrayList);
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
@@ -77,9 +80,8 @@ public class CourseFragment extends Fragment{
 
 
         /*Initialisation of University related*/
-        universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
-
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
+        universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
         universityListView.setVisibility(View.GONE);
 
@@ -93,9 +95,9 @@ public class CourseFragment extends Fragment{
         viewCourseInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                universityEditText.setText("");
-
                 String selectedCourse = courseEditText.getText().toString();
+                universityEditText.setText("");
+                courseEditText.setText("");
                 ((Main)getActivity()).startNewCourseFragment(selectedCourse);
             }
         });
@@ -136,9 +138,14 @@ public class CourseFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String clickedUniversity = (String)adapterView.getItemAtPosition(position);
                 universityEditText.setText(clickedUniversity);
+                //System.out.println(savedInstanceState.getStringArrayList(MYOTHERLISTKEY));
+                if(savedInstanceState != null){
+                    courseArrayList = savedInstanceState.getStringArrayList(MYOTHERLISTKEY);
+                }else{
+
 
                 getCoursesForChosenUniversity(clickedUniversity, courseAdapter, courseArrayList, courseListView);
-
+                }
                 universityListView.setVisibility(View.GONE);
 
             }
@@ -207,7 +214,7 @@ public class CourseFragment extends Fragment{
      *
      */
     public void getCoursesForChosenUniversity(String chosenUniversity, final ArrayAdapter courseAdapter, final ArrayList<String> courseArrayList, final ListView courseListView) {
-        courseListView.setAdapter(courseAdapter);
+        //courseListView.setAdapter(courseAdapter);
 
         RequestParams params = new RequestParams();
         params.put("chosenUniversity", chosenUniversity);

@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class Main extends Activity {
 
     private String[] mNavigationDrawerItemTitles;
@@ -85,6 +87,14 @@ public class Main extends Activity {
         Fragment newCourseInformationFragment = CourseInformationFragment.newInstance(course);
         transaction.addToBackStack(null);
         transaction.replace(R.id.content_frame, newCourseInformationFragment);
+        transaction.commit();
+    }
+
+    public void startNewFragment(String string, ArrayList<String> arrayList){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment addCourseFragment = AddCourseFragment.newInstance(string, arrayList);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.content_frame, addCourseFragment);
         transaction.commit();
     }
 
