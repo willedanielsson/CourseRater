@@ -41,10 +41,10 @@ public class Main extends Activity {
         * If you want to add fragments, here is the DrawerItems
          */
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.courses));
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.my_profile));
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.settings));
-        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_nav, getResources().getString(R.string.about));
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.book, getResources().getString(R.string.courses));
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.user, getResources().getString(R.string.my_profile));
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.settings, getResources().getString(R.string.settings));
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.about, getResources().getString(R.string.about));
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this,R.layout.listview_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);

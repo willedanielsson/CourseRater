@@ -17,29 +17,34 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:orientation="horizontal"
-            android:background="@color/greyish">
-
+            android:background="@color/greyish"
+            android:weightSum="1">
 
         <TextView
             android:id="@+id/courseName_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/headline"
+            android:layout_height="fill_parent"
+            android:textSize="40sp"
+            android:textStyle="bold"
             android:layout_marginLeft="@dimen/marginSideStandard"
+            android:gravity="center"
             android:text="TANA21"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="20dp"
-            android:gravity="right">
+            android:layout_height="200px"
+            android:layout_gravity="end"
+            android:layout_marginRight="70px"
+            android:gravity="right"
+            >
 
             <ImageView
-                android:id="@+id/generalStarImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@drawable/star_rating"
+                android:id="@+id/generalStarImageView"
+                android:layout_width="200px"
+                android:layout_height="200px"
                 />
+
             <TextView
                 android:id="@+id/course_average_rating"
                 android:layout_width="wrap_content"
@@ -51,8 +56,9 @@
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:textSize="20dp"
-                />
-        </RelativeLayout>
+                android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
         </LinearLayout>
     <ListView
         android:id="@+id/courseInformation_list_view"
@@ -60,8 +66,7 @@
         android:layout_height="wrap_content"
         android:divider="@drawable/gradient"
         android:dividerHeight="3px"
-
-       />
+        />
 
     </LinearLayout>
 

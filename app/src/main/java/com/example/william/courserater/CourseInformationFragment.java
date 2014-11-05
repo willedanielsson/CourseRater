@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +53,7 @@ public class CourseInformationFragment extends Fragment {
         courseNameTextView.setText(courseName);
 
         courseAverageRatingTextView = (TextView) rootView.findViewById(R.id.course_average_rating);
+
 
         /*
          * List of parts of the course with their values from database

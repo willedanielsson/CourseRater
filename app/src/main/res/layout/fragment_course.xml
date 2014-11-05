@@ -31,6 +31,17 @@
                 android:textSize="@dimen/headline"
                 />
 
+            <EditText
+                android:layout_width="320px"
+                android:layout_height="@dimen/editTextHeight"
+                android:hint="Country"
+                android:background="@drawable/edit_text_box3"
+                android:layout_marginLeft="@dimen/marginSideStandard"
+                android:layout_marginStart="@dimen/marginSideStandard"
+                android:layout_marginTop="@dimen/marginTopStandard"
+                android:textSize="@dimen/subline"
+                android:paddingLeft="@dimen/marginSideStandard"
+                />
 
             <EditText
                 android:id="@+id/university_edit_text"

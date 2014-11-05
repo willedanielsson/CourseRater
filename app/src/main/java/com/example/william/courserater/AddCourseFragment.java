@@ -102,7 +102,9 @@ public class AddCourseFragment extends Fragment {
         RequestParams params = new RequestParams();
         params.put("university", university);
         params.put("courseCode", courseCode);
-
+        /*
+         * TODO: HAndle so that the user can only add a course if the university exist
+         */
         HttpClient.post("addCourse.php", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
