@@ -21,14 +21,20 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddCourseFragment extends Fragment {
+    private EditText countryEditText;
+    private ListView countryListView;
+    private ArrayList<String> countryArrayList = new ArrayList<String>();
 
     private EditText universityEditText;
     private ListView universityListView;
     private ArrayList<String> universityArrayList = new ArrayList<String>();
+
     private EditText courseEditText;
+
     private Button addCourseButton;
 
     public AddCourseFragment() {
@@ -39,12 +45,50 @@ public class AddCourseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView =  inflater.inflate(R.layout.fragment_add_course, container, false);
 
-        addCourseButton = (Button) rootView.findViewById(R.id.addCourseButton);
+
 
         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
 
+        addCourseButton = (Button) rootView.findViewById(R.id.addCourseButton);
+
+        countryEditText = (EditText) rootView.findViewById(R.id.country_edit_text);
+        countryListView = (ListView) rootView.findViewById(R.id.country_list_view);
+
+        countryListView.setVisibility(View.GONE);
+        countryArrayList = getArguments().getStringArrayList("countryList");
+        final ArrayAdapter<String> countryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, countryArrayList);
+        countryListView.setAdapter(countryAdapter);
+
+        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String clickedCountry = (String) adapterView.getItemAtPosition(position);
+                countryEditText.setText(clickedCountry);
+                countryListView.setVisibility(View.GONE);
+            }
+        });
+
+        countryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                countryAdapter.getFilter().filter(charSequence);
+                if(charSequence.length()==0){
+                    countryListView.setVisibility(View.GONE);
+                }else{
+                    countryListView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
         universityEditText = (EditText) rootView.findViewById(R.id.university_edit_text);
         universityListView = (ListView) rootView.findViewById(R.id.university_list_view);
+
         universityListView.setVisibility(View.GONE);
         universityArrayList = getArguments().getStringArrayList("universityList");
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
@@ -87,7 +131,6 @@ public class AddCourseFragment extends Fragment {
 
             if(university.length()!=0 && courseCode.length()!=0 ) {
                 uploadCourseData(university, courseCode);
-                System.out.println("Jaa");
             }
 
         }
@@ -118,12 +161,13 @@ public class AddCourseFragment extends Fragment {
     }
 
 
-    public static AddCourseFragment newInstance(String university, ArrayList<String> arrayList) {
+    public static AddCourseFragment newInstance(String university, ArrayList<String> countryArrayList, ArrayList<String> universityArrayList) {
         AddCourseFragment addCourseFragment = new AddCourseFragment();
         if(university!=null){
             Bundle args = new Bundle();
 
-            args.putStringArrayList("universityList", arrayList);
+            args.putStringArrayList("universityList", universityArrayList);
+            args.putStringArrayList("countryList", countryArrayList);
             args.putString("university", university);
             addCourseFragment.setArguments(args);
         }

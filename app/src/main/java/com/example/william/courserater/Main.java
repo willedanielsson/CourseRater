@@ -90,9 +90,9 @@ public class Main extends Activity {
         transaction.commit();
     }
 
-    public void startNewFragment(String string, ArrayList<String> arrayList){
+    public void startNewFragment(String string, ArrayList<String> countryArrayList, ArrayList<String> universityArrayList){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment addCourseFragment = AddCourseFragment.newInstance(string, arrayList);
+        Fragment addCourseFragment = AddCourseFragment.newInstance(string, countryArrayList, universityArrayList);
         transaction.addToBackStack(null);
         transaction.replace(R.id.content_frame, addCourseFragment);
         transaction.commit();

@@ -68,9 +68,9 @@ public class CourseFragment extends Fragment{
 
     private void addNewCourse() {
         if(universityEditText.getText()==null){
-            ((Main)getActivity()).startNewFragment(null, universityArrayList);
+            ((Main)getActivity()).startNewFragment(null,countryArrayList, universityArrayList);
         }else{
-        ((Main)getActivity()).startNewFragment(universityEditText.getText().toString(), universityArrayList);
+        ((Main)getActivity()).startNewFragment(universityEditText.getText().toString(), countryArrayList, universityArrayList);
         }
     }
 
