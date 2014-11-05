@@ -29,17 +29,24 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class CourseFragment extends Fragment{
+
+    private EditText countryEditText;
+    private ListView countryListView;
+
     private EditText universityEditText;
     private ListView universityListView;
 
     private ListView courseListView;
     private EditText courseEditText;
 
+    private ArrayList<String> countryArrayList = new ArrayList<String>();
+    private static final String COUNTRYLISTKEY = "countryListLabels";
+
     private ArrayList<String> universityArrayList = new ArrayList<String>();
-    private static final String MYLISTKEY = "myListLabels";
+    private static final String UNILISTKEY = "uniListLabels";
 
     private ArrayList<String> courseArrayList = new ArrayList<String>();
-    private static final String MYOTHERLISTKEY = "myOtherListLabels";
+    private static final String MYOTHERLISTKEY = "courseListLabels";
 
     public CourseFragment() {
         // Required empty public constructor
@@ -70,7 +77,8 @@ public class CourseFragment extends Fragment{
     @Override
     public final void onSaveInstanceState(Bundle savedState){
         super.onSaveInstanceState(savedState);
-        savedState.putStringArrayList(MYLISTKEY, universityArrayList);
+        savedState.putStringArrayList(COUNTRYLISTKEY, countryArrayList);
+        savedState.putStringArrayList(UNILISTKEY, universityArrayList);
         savedState.putStringArrayList(MYOTHERLISTKEY, courseArrayList);
     }
 
@@ -78,6 +86,10 @@ public class CourseFragment extends Fragment{
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_course, container, false);
 
+        final ArrayAdapter<String> countryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, countryArrayList);
+        countryEditText = (EditText) rootView.findViewById(R.id.country_edit_text);
+        countryListView = (ListView) rootView.findViewById(R.id.country_list_view);
+        countryListView.setVisibility(View.GONE);
 
         /*Initialisation of University related*/
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
@@ -103,24 +115,24 @@ public class CourseFragment extends Fragment{
         });
 
         /*
-         * University part
+         * Country part
          */
         if(savedInstanceState != null){
-            universityArrayList = savedInstanceState.getStringArrayList(MYLISTKEY);
+            countryArrayList = savedInstanceState.getStringArrayList(COUNTRYLISTKEY);
         }else {
             try {
-                HttpClient.get("connect.php", null, new JsonHttpResponseHandler() {
+                HttpClient.get("getCountries.php", null, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
 
                         try {
                             for (int i = 0; i < json.length(); i++) {
-                                String universityName = json.get(i).toString();
-                                universityArrayList.add(universityName);
+                                String countryName = json.get(i).toString();
+                                countryArrayList.add(countryName);
                             }
 
-                            universityListView.setAdapter(universityAdapter);
+                            countryListView.setAdapter(countryAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -129,9 +141,44 @@ public class CourseFragment extends Fragment{
                     // Do something with the response
                 });
             } catch (Exception e) {
-                Log.e("UniversityHTTP", e.toString());
+                Log.e("CountryHTTP", e.toString());
             }
         }
+
+        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String clickedCountry = (String) adapterView.getItemAtPosition(position);
+                countryEditText.setText(clickedCountry);
+
+                if (savedInstanceState != null) {
+                    universityArrayList = savedInstanceState.getStringArrayList(UNILISTKEY);
+                } else {
+                    getUniversityForChosenCountry(clickedCountry, universityAdapter, universityArrayList, universityListView);
+                }
+                countryListView.setVisibility(View.GONE);
+            }
+
+        });
+
+        countryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                countryAdapter.getFilter().filter(charSequence);
+                if(charSequence.length()==0){
+                    countryListView.setVisibility(View.GONE);
+                }else{
+                    countryListView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
         universityListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
@@ -204,11 +251,42 @@ public class CourseFragment extends Fragment{
         return rootView;
     }
 
+
     public static CourseFragment newInstance() {
         CourseFragment courseFragment = new CourseFragment();
         return courseFragment;
     }
 
+    private void getUniversityForChosenCountry(String clickedCountry, final ArrayAdapter<String> universityAdapter, final ArrayList<String> universityArrayList, final ListView universityListView) {
+
+        RequestParams countryParams = new RequestParams();
+        countryParams.put("country", clickedCountry);
+
+        try {
+            HttpClient.get("getUniversitiesForCountry.php", countryParams, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                    try{
+                        for(int i = 0; i<json.length(); i++){
+                            String universityName = json.get(i).toString();
+                            universityArrayList.add(universityName);
+                        }
+                        universityListView.setAdapter(universityAdapter);
+                    }catch (JSONException e){
+                        Log.e("JSONEXEPT", e.toString());
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String string, Throwable e){
+                    Log.e("OnFailure", e.toString());
+
+                }
+            });
+        }catch (Exception e){
+            Log.e("HTTPUNI", e.toString());
+        }
+
+    }
 
     /*
      *
@@ -225,8 +303,8 @@ public class CourseFragment extends Fragment{
                 public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                     try {
                         for (int i = 0; i < json.length(); i++) {
-                            String universityName = json.get(i).toString();
-                            courseArrayList.add(universityName);
+                            String courseName = json.get(i).toString();
+                            courseArrayList.add(courseName);
                         }
                         courseListView.setAdapter(courseAdapter);
 

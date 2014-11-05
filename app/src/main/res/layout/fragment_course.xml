@@ -31,6 +31,29 @@
                 android:textSize="@dimen/headline"
                 />
 
+            <EditText
+                android:id="@+id/country_edit_text"
+                android:layout_width="320dp"
+                android:layout_height="@dimen/editTextHeight"
+                android:hint="Country"
+                android:background="@drawable/edit_text_box3"
+                android:layout_marginLeft="@dimen/marginSideStandard"
+                android:layout_marginStart="@dimen/marginSideStandard"
+                android:layout_marginTop="@dimen/marginTopStandard"
+                android:textSize="@dimen/subline"
+                android:paddingLeft="@dimen/marginSideStandard"
+                />
+
+            <ListView
+                android:id="@+id/country_list_view"
+                android:layout_width="320dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="@dimen/marginSideStandard"
+                android:layout_marginStart="@dimen/marginSideStandard"
+                android:layout_marginBottom="@dimen/marginTopStandard"
+                android:layout_marginTop="-10px"
+                android:background="@drawable/list_border"
+                />
 
             <EditText
                 android:id="@+id/university_edit_text"
