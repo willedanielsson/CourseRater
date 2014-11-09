@@ -17,7 +17,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:orientation="horizontal"
-            android:background="@color/greyish"
+            android:background="@drawable/gradient_box"
             android:weightSum="1">
 
         <TextView
@@ -64,7 +64,7 @@
         android:id="@+id/courseInformation_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@drawable/gradient"
+        android:divider="@drawable/gradient_divider"
         android:dividerHeight="3px"
         />
 

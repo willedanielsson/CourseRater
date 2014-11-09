@@ -119,7 +119,9 @@
                         android:textSize="@dimen/buttonTextSize"
                         android:text="View"
                         android:background="@drawable/button_shape"
+
                         android:textColor="@color/whiteish"/>
+
             </RelativeLayout>
         </LinearLayout>
     </com.example.william.courserater.VerticalScrollView>
