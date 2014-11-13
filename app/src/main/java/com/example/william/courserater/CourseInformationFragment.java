@@ -1,5 +1,6 @@
 package com.example.william.courserater;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -37,7 +39,7 @@ public class CourseInformationFragment extends Fragment {
     private ListView informationListView;
     private TextView courseNameTextView;
     private TextView courseAverageRatingTextView;
-    private boolean initRun = true;
+    private ProgressBar progressBar;
 
     public CourseInformationFragment() {
         // Required empty public constructor
@@ -101,70 +103,7 @@ public class CourseInformationFragment extends Fragment {
                             Float value = Float.parseFloat(JSONObject.getString(key));
                             informationRatingArrayList.add(value);
                         }
-
-                        ArrayList<String> examCommentsArrayList = new ArrayList<String>();
-                        JSONArray examCommentsArray = (JSONArray) json.get("examComments");
-                        for (int i=0; i<examCommentsArray.length(); i++){
-                            JSONObject object = examCommentsArray.getJSONObject(i);
-                            examCommentsArrayList.add(object.getString("examComment"));
-                        }
-                        groupList.add(examCommentsArrayList);
-
-                        ArrayList<String> lectureCommentsArrayList = new ArrayList<String>();
-                        JSONArray lectureCommentsArray = (JSONArray) json.get("lectureComments");
-                        for (int i=0; i<lectureCommentsArray.length(); i++){
-                            JSONObject object = lectureCommentsArray.getJSONObject(i);
-                            lectureCommentsArrayList.add(object.getString("lectureComment"));
-                        }
-                        groupList.add(lectureCommentsArrayList);
-
-                        ArrayList<String> lessonCommentsArrayList = new ArrayList<String>();
-                        JSONArray lessonCommentsArray = (JSONArray) json.get("lessonComments");
-                        for(int i=0; i<lessonCommentsArray.length(); i++){
-                            JSONObject object = lessonCommentsArray.getJSONObject(i);
-                            lessonCommentsArrayList.add(object.getString("lessonComment"));
-                        }
-                        groupList.add(lessonCommentsArrayList);
-
-                        ArrayList<String> laboratoryCommentsArrayList = new ArrayList<String>();
-                        JSONArray laboratoryCommentsArray = (JSONArray) json.get("laboratoryComments");
-                        for (int i=0; i<laboratoryCommentsArray.length(); i++){
-                            JSONObject object = laboratoryCommentsArray.getJSONObject(i);
-                            laboratoryCommentsArrayList.add(object.getString("laboratoryComment"));
-                        }
-                        groupList.add(laboratoryCommentsArrayList);
-
-                        ArrayList<String> seminarCommentsArrayList = new ArrayList<String>();
-                        JSONArray seminarCommentsArray = (JSONArray) json.get("seminarComments");
-                        for (int i=0; i<seminarCommentsArray.length(); i++){
-                            JSONObject object = seminarCommentsArray.getJSONObject(i);
-                            seminarCommentsArrayList.add(object.getString("seminarComment"));
-                        }
-                        groupList.add(seminarCommentsArrayList);
-
-                        ArrayList<String> projectCommentsArrayList = new ArrayList<String>();
-                        JSONArray projectCommentsArray = (JSONArray) json.get("projectComments");
-                        for (int i=0; i<projectCommentsArray.length(); i++){
-                            JSONObject object = projectCommentsArray.getJSONObject(i);
-                            projectCommentsArrayList.add(object.getString("projectComment"));
-                        }
-                        groupList.add(projectCommentsArrayList);
-
-                        ArrayList<String> homeassignmentCommentsArrayList = new ArrayList<String>();
-                        JSONArray homeassignmentCommentsArray = (JSONArray) json.get("homeassignmentComments");
-                        for (int i=0; i<homeassignmentCommentsArray.length(); i++){
-                            JSONObject object = homeassignmentCommentsArray.getJSONObject(i);
-                            homeassignmentCommentsArrayList.add(object.getString("homeassignmentComment"));
-                        }
-                        groupList.add(homeassignmentCommentsArrayList);
-
-                        ArrayList<String> caseCommentsArrayList = new ArrayList<String>();
-                        JSONArray caseCommentsArray = (JSONArray) json.get("caseComments");
-                        for (int i=0; i<caseCommentsArray.length(); i++){
-                            JSONObject object = caseCommentsArray.getJSONObject(i);
-                            caseCommentsArrayList.add(object.getString("caseComment"));
-                        }
-                        groupList.add(caseCommentsArrayList);
+                        getComments(groupList,json);
 
                         createInformationList(informationRatingArrayList, courseParts, adapter);
 
@@ -220,7 +159,82 @@ public class CourseInformationFragment extends Fragment {
         return rootView;
     }
 
+    private void getComments(ArrayList<ArrayList<String>> groupList, JSONObject json) {
+        try {
+            ArrayList<String> examCommentsArrayList = new ArrayList<String>();
+            JSONArray examCommentsArray = (JSONArray) json.get("examComments");
+            for (int i = 0; i < examCommentsArray.length(); i++) {
+                JSONObject object = examCommentsArray.getJSONObject(i);
+                examCommentsArrayList.add(object.getString("examComment"));
+            }
+            groupList.add(examCommentsArrayList);
 
+            ArrayList<String> lectureCommentsArrayList = new ArrayList<String>();
+            JSONArray lectureCommentsArray = (JSONArray) json.get("lectureComments");
+            for (int i = 0; i < lectureCommentsArray.length(); i++) {
+                JSONObject object = lectureCommentsArray.getJSONObject(i);
+                lectureCommentsArrayList.add(object.getString("lectureComment"));
+            }
+            groupList.add(lectureCommentsArrayList);
+
+            ArrayList<String> lessonCommentsArrayList = new ArrayList<String>();
+            JSONArray lessonCommentsArray = (JSONArray) json.get("lessonComments");
+            for (int i = 0; i < lessonCommentsArray.length(); i++) {
+                JSONObject object = lessonCommentsArray.getJSONObject(i);
+                lessonCommentsArrayList.add(object.getString("lessonComment"));
+            }
+            groupList.add(lessonCommentsArrayList);
+
+            ArrayList<String> laboratoryCommentsArrayList = new ArrayList<String>();
+            JSONArray laboratoryCommentsArray = (JSONArray) json.get("laboratoryComments");
+            for (int i = 0; i < laboratoryCommentsArray.length(); i++) {
+                JSONObject object = laboratoryCommentsArray.getJSONObject(i);
+                laboratoryCommentsArrayList.add(object.getString("laboratoryComment"));
+            }
+            groupList.add(laboratoryCommentsArrayList);
+
+            ArrayList<String> seminarCommentsArrayList = new ArrayList<String>();
+            JSONArray seminarCommentsArray = (JSONArray) json.get("seminarComments");
+            for (int i = 0; i < seminarCommentsArray.length(); i++) {
+                JSONObject object = seminarCommentsArray.getJSONObject(i);
+                seminarCommentsArrayList.add(object.getString("seminarComment"));
+            }
+            groupList.add(seminarCommentsArrayList);
+
+            ArrayList<String> projectCommentsArrayList = new ArrayList<String>();
+            JSONArray projectCommentsArray = (JSONArray) json.get("projectComments");
+            for (int i = 0; i < projectCommentsArray.length(); i++) {
+                JSONObject object = projectCommentsArray.getJSONObject(i);
+                projectCommentsArrayList.add(object.getString("projectComment"));
+            }
+            groupList.add(projectCommentsArrayList);
+
+            ArrayList<String> homeassignmentCommentsArrayList = new ArrayList<String>();
+            JSONArray homeassignmentCommentsArray = (JSONArray) json.get("homeassignmentComments");
+            for (int i = 0; i < homeassignmentCommentsArray.length(); i++) {
+                JSONObject object = homeassignmentCommentsArray.getJSONObject(i);
+                homeassignmentCommentsArrayList.add(object.getString("homeassignmentComment"));
+            }
+            groupList.add(homeassignmentCommentsArrayList);
+
+            ArrayList<String> caseCommentsArrayList = new ArrayList<String>();
+            JSONArray caseCommentsArray = (JSONArray) json.get("caseComments");
+            for (int i = 0; i < caseCommentsArray.length(); i++) {
+                JSONObject object = caseCommentsArray.getJSONObject(i);
+                caseCommentsArrayList.add(object.getString("caseComment"));
+            }
+            groupList.add(caseCommentsArrayList);
+
+        }catch (Exception e){
+            Log.e("GetComments", e.toString());
+        }
+    }
+
+
+    /*
+     * Adds the course part with the right value from database to informationRatingArrayList
+     * Also calculates the average score and sets the text to that score
+     */
     private void createInformationList(ArrayList<Float> informationRatingArrayList, ArrayList<ItemRating> informationArrayList, ArrayAdapter adapter) {
         float sumOfValues= 0.0f;
         int numberOfValues = 0;
