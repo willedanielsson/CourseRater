@@ -98,14 +98,14 @@ public class CourseFragment extends Fragment{
 
     private void addNewCourse() {
         if(countryEditText.getText()==null){ // If country is empty, clear all
-            ((Main)getActivity()).startNewFragment(null ,null,countryArrayList, universityArrayList);
+            ((Main)getActivity()).createAddCourseFragment(null ,null,countryArrayList, universityArrayList);
         }
          // Country is taken but not the university
         else if(countryEditText.getText()!= null && universityEditText.getText()==null){
-            ((Main)getActivity()).startNewFragment(countryEditText.getText().toString() ,null, countryArrayList, universityArrayList);
+            ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString() ,null, countryArrayList, universityArrayList);
 
         }else{
-        ((Main)getActivity()).startNewFragment(countryEditText.getText().toString(), universityEditText.getText().toString(), countryArrayList, universityArrayList);
+        ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString(), universityEditText.getText().toString(), countryArrayList, universityArrayList);
         }
     }
 
@@ -144,8 +144,15 @@ public class CourseFragment extends Fragment{
         viewCourseInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selectedCourse = "TANA21";
+                countryEditText.setText("");
+                universityEditText.setText("");
+                courseEditText.setText("");
+                ((Main)getActivity()).startNewCourseFragment(selectedCourse);
 
-                boolean localIsCountrySet = getIsCountrySet();
+            /* DEVELOPMENT
+
+              boolean localIsCountrySet = getIsCountrySet();
                 boolean localIsUniversitySet = getIsUniversitySet();
                 boolean localIsCourseSet = getIsCourseSet();
                 if(localIsCountrySet==true && localIsUniversitySet==true && localIsCourseSet==true){
@@ -162,6 +169,8 @@ public class CourseFragment extends Fragment{
                 }else if(localIsCourseSet == false){
                     Toast.makeText(getActivity(), "Choose course from list", Toast.LENGTH_LONG).show();
                 }
+            */
+
 
             }
         });

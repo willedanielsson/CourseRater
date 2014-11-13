@@ -12,17 +12,17 @@ import java.util.ArrayList;
 /**
  * Created by William on 2014-11-01.
  */
-public class MyAdapter extends ArrayAdapter<Item> {
+public class AdapterRating extends ArrayAdapter<ItemRating> {
 
     private final Context context;
-    private final ArrayList<Item> itemsArrayList;
+    private final ArrayList<ItemRating> itemRatingArrayList;
 
-    public MyAdapter(Context context, ArrayList<Item> itemsArrayList) {
+    public AdapterRating(Context context, ArrayList<ItemRating> itemRatingArrayList) {
 
-        super(context, R.layout.listview_information_row, itemsArrayList);
+        super(context, R.layout.listview_information_row, itemRatingArrayList);
 
         this.context = context;
-        this.itemsArrayList = itemsArrayList;
+        this.itemRatingArrayList = itemRatingArrayList;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class MyAdapter extends ArrayAdapter<Item> {
         TextView labelView = (TextView) rowView.findViewById(R.id.informationLabel);
         TextView valueView = (TextView) rowView.findViewById(R.id.informationValue);
         // 4. Set the text for textView
-        labelView.setText(itemsArrayList.get(position).getLabel());
-        valueView.setText(itemsArrayList.get(position).getValue().toString());
+        labelView.setText(itemRatingArrayList.get(position).getLabel());
+        valueView.setText(itemRatingArrayList.get(position).getValue().toString());
 
         return rowView;
     }

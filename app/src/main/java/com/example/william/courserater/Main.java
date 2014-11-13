@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Activity {
 
@@ -90,11 +91,19 @@ public class Main extends Activity {
         transaction.commit();
     }
 
-    public void startNewFragment(String country, String university, ArrayList<String> countryArrayList, ArrayList<String> universityArrayList){
+    public void createAddCourseFragment(String country, String university, ArrayList<String> countryArrayList, ArrayList<String> universityArrayList){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment addCourseFragment = AddCourseFragment.newInstance(country, university, countryArrayList, universityArrayList);
         transaction.addToBackStack(null);
         transaction.replace(R.id.content_frame, addCourseFragment);
+        transaction.commit();
+    }
+
+    public void createCoursePartFragment(String courseName, String coursePart, ArrayList<String> clickedPartCommentList){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment coursePartFragment = CoursePartFragment.newInstance(courseName, coursePart, clickedPartCommentList);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.content_frame, coursePartFragment);
         transaction.commit();
     }
 

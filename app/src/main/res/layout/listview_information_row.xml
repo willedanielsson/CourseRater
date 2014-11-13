@@ -20,7 +20,7 @@
         android:layout_height="150px"
         android:layout_marginRight="100px"
         android:gravity="right">
-        
+
         <ImageView
             android:id="@+id/starImageView"
             android:layout_width="150px"
@@ -41,16 +41,6 @@
             android:textSize="15dp"
             />
 
-        <!--
-        <TextView
-            android:id="@+id/informationValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-
-
-            />
-            -->
     </RelativeLayout>
 </LinearLayout>
 
