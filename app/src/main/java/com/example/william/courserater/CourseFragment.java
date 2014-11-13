@@ -30,30 +30,6 @@ import java.util.ArrayList;
 
 public class CourseFragment extends Fragment{
 
-    public static boolean getIsCountrySet() {
-        return isCountrySet;
-    }
-
-    public static void setIsCountrySet(boolean isCountrySet) {
-        CourseFragment.isCountrySet = isCountrySet;
-    }
-
-    public static boolean getIsUniversitySet() {
-        return isUniversitySet;
-    }
-
-    public static void setIsUniversitySet(boolean isUniversitySet) {
-        CourseFragment.isUniversitySet = isUniversitySet;
-    }
-
-    public static boolean getIsCourseSet() {
-        return isCourseSet;
-    }
-
-    public static void setIsCourseSet(boolean isCourseSet) {
-        CourseFragment.isCourseSet = isCourseSet;
-    }
-
     private static boolean isCountrySet;
     private static boolean isUniversitySet;
     private static boolean isCourseSet;
@@ -96,18 +72,6 @@ public class CourseFragment extends Fragment{
         return super.onOptionsItemSelected(item);
     }
 
-    private void addNewCourse() {
-        if(countryEditText.getText()==null){ // If country is empty, clear all
-            ((Main)getActivity()).createAddCourseFragment(null ,null,countryArrayList, universityArrayList);
-        }
-         // Country is taken but not the university
-        else if(countryEditText.getText()!= null && universityEditText.getText()==null){
-            ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString() ,null, countryArrayList, universityArrayList);
-
-        }else{
-        ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString(), universityEditText.getText().toString(), countryArrayList, universityArrayList);
-        }
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         setIsCountrySet(false);
@@ -332,9 +296,51 @@ public class CourseFragment extends Fragment{
         return courseFragment;
     }
 
+    private void addNewCourse() {
+        // If country is empty, clear all
+        if(countryEditText.getText().equals(null)){
+            ((Main)getActivity()).createAddCourseFragment(null ,null,countryArrayList, universityArrayList);
+            countryEditText.setText("");
+            universityEditText.setText("");
+            courseEditText.setText("");
+        }
+        // Country is taken but not the university
+        else if(countryEditText.getText().equals(null) && universityEditText.getText()==null){
+            ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString() ,null, countryArrayList, universityArrayList);
+            countryEditText.setText("");
+            universityEditText.setText("");
+            courseEditText.setText("");
 
-    /*
-     *
-     */
+        }else{
+            ((Main)getActivity()).createAddCourseFragment(countryEditText.getText().toString(), universityEditText.getText().toString(), countryArrayList, universityArrayList);
+            countryEditText.setText("");
+            universityEditText.setText("");
+            courseEditText.setText("");
+        }
+    }
+
+    public static boolean getIsCountrySet() {
+        return isCountrySet;
+    }
+
+    public static void setIsCountrySet(boolean isCountrySet) {
+        CourseFragment.isCountrySet = isCountrySet;
+    }
+
+    public static boolean getIsUniversitySet() {
+        return isUniversitySet;
+    }
+
+    public static void setIsUniversitySet(boolean isUniversitySet) {
+        CourseFragment.isUniversitySet = isUniversitySet;
+    }
+
+    public static boolean getIsCourseSet() {
+        return isCourseSet;
+    }
+
+    public static void setIsCourseSet(boolean isCourseSet) {
+        CourseFragment.isCourseSet = isCourseSet;
+    }
 
 }

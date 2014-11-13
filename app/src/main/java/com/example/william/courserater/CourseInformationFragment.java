@@ -48,8 +48,6 @@ public class CourseInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_course_information, container, false);
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -284,15 +282,12 @@ public class CourseInformationFragment extends Fragment {
             sumOfValues = sumOfValues+informationRatingArrayList.get(4);
             numberOfValues++;
         }
-        
+        System.out.println("calculating");
         Float averageScore;
         averageScore = sumOfValues/numberOfValues;
         double result = (double) Math.round(averageScore*10)/10;
         String resultText = String.valueOf(result);
-        if(initRun==true){
             courseAverageRatingTextView.setText(resultText);
-            initRun=false;
-        }
 
         informationListView.setAdapter(adapter);
     }
