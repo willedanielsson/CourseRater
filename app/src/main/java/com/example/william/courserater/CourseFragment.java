@@ -108,11 +108,12 @@ public class CourseFragment extends Fragment{
         viewCourseInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selectedUniversity = "Linköpings tekniska högskola";
                 String selectedCourse = "TANA21";
                 countryEditText.setText("");
                 universityEditText.setText("");
                 courseEditText.setText("");
-                ((Main)getActivity()).startNewCourseFragment(selectedCourse);
+                ((Main)getActivity()).startNewCourseFragment(selectedUniversity, selectedCourse);
 
             /* DEVELOPMENT
 
@@ -120,12 +121,14 @@ public class CourseFragment extends Fragment{
                 boolean localIsUniversitySet = getIsUniversitySet();
                 boolean localIsCourseSet = getIsCourseSet();
                 if(localIsCountrySet==true && localIsUniversitySet==true && localIsCourseSet==true){
+                    String selectedUniversity = courseEditText.getText().toString();
                     String selectedCourse = courseEditText.getText().toString();
+
                     countryEditText.setText("");
                     universityEditText.setText("");
                     courseEditText.setText("");
 
-                    ((Main)getActivity()).startNewCourseFragment(selectedCourse);
+                    ((Main)getActivity()).startNewCourseFragment(selectedUniversity, selectedCourse);
                 }else if(localIsCountrySet == false){
                     Toast.makeText(getActivity(), "Choose country from list", Toast.LENGTH_LONG).show();
                 }else if(localIsUniversitySet == false){

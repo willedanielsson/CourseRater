@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.william.courserater.AddCourseFragment">
+    tools:context="com.example.william.courserater.AddCourseFragment"
+    android:background="@color/white">
     <com.example.william.courserater.VerticalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,7 +27,7 @@
             android:id="@+id/country_edit_text"
             android:layout_width="320dp"
             android:layout_height="@dimen/editTextHeight"
-            android:hint="University"
+            android:hint="Country"
             android:background="@drawable/edit_text_box3"
             android:layout_marginLeft="@dimen/marginSideStandard"
             android:layout_marginStart="@dimen/marginSideStandard"
@@ -82,6 +83,89 @@
             android:textSize="@dimen/subline"
             android:paddingLeft="@dimen/marginSideStandard"
             />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/marginSideStandard"
+            android:layout_marginStart="@dimen/marginSideStandard"
+            android:layout_marginTop="@dimen/marginTopStandard">
+
+            <CheckBox
+                android:id="@+id/lectures_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:checked="true"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Lectures"/>
+
+            <CheckBox
+                android:id="@+id/lessons_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Lessons"/>
+
+            <CheckBox
+                android:id="@+id/exam_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Exam"/>
+
+            <CheckBox
+                android:id="@+id/laboratory_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Laboratory"/>
+
+            <CheckBox
+                android:id="@+id/seminar_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Seminar"/>
+
+            <CheckBox
+                android:id="@+id/project_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Project"/>
+
+            <CheckBox
+                android:id="@+id/homeassignment_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Homeassignment"/>
+
+            <CheckBox
+                android:id="@+id/case_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/checkboxBotMargin"
+                android:button="@drawable/checkbox_selector"
+                android:textSize="@dimen/checkboxTextSize"
+                android:text="Case"/>
+
+        </LinearLayout>
 
         <RelativeLayout
         android:layout_width="fill_parent"

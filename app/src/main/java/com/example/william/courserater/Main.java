@@ -83,19 +83,27 @@ public class Main extends Activity {
     /*/
 
      */
-    public void startNewCourseFragment(String course){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment newCourseInformationFragment = CourseInformationFragment.newInstance(course);
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.content_frame, newCourseInformationFragment);
-        transaction.commit();
-    }
 
     public void createAddCourseFragment(String country, String university, ArrayList<String> countryArrayList, ArrayList<String> universityArrayList){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment addCourseFragment = AddCourseFragment.newInstance(country, university, countryArrayList, universityArrayList);
         transaction.addToBackStack(null);
         transaction.replace(R.id.content_frame, addCourseFragment);
+        transaction.commit();
+    }
+    public void startNewCourseFragment(String university, String course){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment newCourseInformationFragment = CourseInformationFragment.newInstance(university, course);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.content_frame, newCourseInformationFragment);
+        transaction.commit();
+    }
+
+    public void createAddReviewFragment(String university, String course){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment addReviewFragment = AddReviewFragment.newInstance(university, course);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.content_frame, addReviewFragment);
         transaction.commit();
     }
 

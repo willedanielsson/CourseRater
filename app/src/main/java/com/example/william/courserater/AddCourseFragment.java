@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,6 +51,16 @@ public class AddCourseFragment extends Fragment {
 
     private EditText courseEditText;
 
+    private CheckBox lectureCheckbox;
+    private CheckBox lessonCheckbox;
+    private CheckBox examCheckbox;
+    private CheckBox laboratoryCheckbox;
+    private CheckBox seminarCheckbox;
+    private CheckBox projectCheckbox;
+    private CheckBox homeassignmentCheckbox;
+    private CheckBox caseCheckbox;
+
+
     private Button addCourseButton;
 
     public AddCourseFragment() {
@@ -87,6 +98,9 @@ public class AddCourseFragment extends Fragment {
         final ArrayAdapter<String> universityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityArrayList);
 
         courseEditText = (EditText) rootView.findViewById(R.id.course_edit_text);
+
+        initCheckboxes(rootView);
+        adjustPaddingToCheckboxes();
 
         addCourseButton = (Button) rootView.findViewById(R.id.addCourseButton);
         addCourseButton.setBackgroundResource(R.drawable.button_shape);
@@ -216,4 +230,51 @@ public class AddCourseFragment extends Fragment {
         return addCourseFragment;
     }
 
+    public void initCheckboxes(View rootView){
+        lectureCheckbox = (CheckBox) rootView.findViewById(R.id.lectures_checkbox);
+        lessonCheckbox = (CheckBox) rootView.findViewById(R.id.lessons_checkbox);
+        examCheckbox = (CheckBox) rootView.findViewById(R.id.exam_checkbox);
+        laboratoryCheckbox = (CheckBox) rootView.findViewById(R.id.laboratory_checkbox);
+        seminarCheckbox = (CheckBox) rootView.findViewById(R.id.seminar_checkbox);
+        projectCheckbox = (CheckBox) rootView.findViewById(R.id.project_checkbox);
+        homeassignmentCheckbox = (CheckBox) rootView.findViewById(R.id.homeassignment_checkbox);
+        caseCheckbox = (CheckBox) rootView.findViewById(R.id.case_checkbox);
+    }
+
+    public void adjustPaddingToCheckboxes(){
+
+        final float scale = this.getResources().getDisplayMetrics().density;
+        lectureCheckbox.setPadding(lectureCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                lectureCheckbox.getPaddingTop(),
+                lectureCheckbox.getPaddingRight(),
+                lectureCheckbox.getPaddingBottom());
+        lessonCheckbox.setPadding(lessonCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                lessonCheckbox.getPaddingTop(),
+                lessonCheckbox.getPaddingRight(),
+                lessonCheckbox.getPaddingBottom());
+        examCheckbox.setPadding(examCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                examCheckbox.getPaddingTop(),
+                examCheckbox.getPaddingRight(),
+                examCheckbox.getPaddingBottom());
+        laboratoryCheckbox.setPadding(laboratoryCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                laboratoryCheckbox.getPaddingTop(),
+                laboratoryCheckbox.getPaddingRight(),
+                laboratoryCheckbox.getPaddingBottom());
+        seminarCheckbox.setPadding(seminarCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                seminarCheckbox.getPaddingTop(),
+                seminarCheckbox.getPaddingRight(),
+                seminarCheckbox.getPaddingBottom());
+        projectCheckbox.setPadding(projectCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                projectCheckbox.getPaddingTop(),
+                projectCheckbox.getPaddingRight(),
+                projectCheckbox.getPaddingBottom());
+        homeassignmentCheckbox.setPadding(homeassignmentCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                homeassignmentCheckbox.getPaddingTop(),
+                homeassignmentCheckbox.getPaddingRight(),
+                homeassignmentCheckbox.getPaddingBottom());
+        caseCheckbox.setPadding(caseCheckbox.getPaddingLeft() + (int)(10.0f * scale + 0.5f),
+                caseCheckbox.getPaddingTop(),
+                caseCheckbox.getPaddingRight(),
+                caseCheckbox.getPaddingBottom());
+    }
 }

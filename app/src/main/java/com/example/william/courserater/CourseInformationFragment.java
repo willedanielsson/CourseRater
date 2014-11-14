@@ -10,6 +10,9 @@ import android.app.Fragment;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethod;
@@ -44,15 +47,29 @@ public class CourseInformationFragment extends Fragment {
     public CourseInformationFragment() {
         // Required empty public constructor
     }
-    /*
-     * TODO: Add comments below the ratings (prob in a list)
-     */
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+        menuInflater.inflate(R.menu.add_review,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.add_review:
+                addNewReview(getArguments().getString("universityName"), getArguments().getString("courseName"));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_course_information, container, false);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        setHasOptionsMenu(true);
+        //final String universityName = getArguments().getString("universityName"); //used for when creating a new review
         final String courseName = getArguments().getString("courseName");
 
         courseNameTextView = (TextView) rootView.findViewById(R.id.courseName_text_view);
@@ -304,13 +321,20 @@ public class CourseInformationFragment extends Fragment {
         informationListView.setAdapter(adapter);
     }
 
-    public static CourseInformationFragment newInstance(String courseName) {
+    public static CourseInformationFragment newInstance(String universityName, String courseName) {
         CourseInformationFragment courseInformationFragment = new CourseInformationFragment();
 
         Bundle args = new Bundle();
+        args.putString("universityName", universityName);
         args.putString("courseName", courseName);
         courseInformationFragment.setArguments(args);
         return courseInformationFragment;
 
     }
+
+
+    private void addNewReview(String university, String course) {
+        ((Main)getActivity()).createAddReviewFragment(university, course);
+    }
+
 }

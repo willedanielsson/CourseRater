@@ -12,5 +12,7 @@
     <dimen name="buttonWidth">140dp</dimen>
     <dimen name="buttonHeight">60dp</dimen>
     <dimen name="buttonTextSize">29sp</dimen>
+    <dimen name="checkboxBotMargin">15dp</dimen>
+    <dimen name="checkboxTextSize">23sp</dimen>
     <dimen name="corner">5dp</dimen>
 </resources>
