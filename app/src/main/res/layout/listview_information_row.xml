@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="@dimen/list_text_size"
         android:paddingLeft="@dimen/marginSideStandard"
         android:text="Usefulness"
         />

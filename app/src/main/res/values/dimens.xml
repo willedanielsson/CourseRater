@@ -15,4 +15,10 @@
     <dimen name="checkboxBotMargin">15dp</dimen>
     <dimen name="checkboxTextSize">23sp</dimen>
     <dimen name="corner">5dp</dimen>
+    <dimen name="editTextCommentHeight">60dp</dimen>
+    <dimen name="edit_text_comment_width">250dp</dimen>
+    <dimen name="edit_text_comment_text_size">15sp</dimen>
+    <dimen name="edit_text_comment_padding">5dp</dimen>
+    <dimen name="review_margin_left">15dp</dimen>
+    <dimen name="list_text_size">22sp</dimen>
 </resources>

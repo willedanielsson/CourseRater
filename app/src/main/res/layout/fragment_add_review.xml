@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.william.courserater.AddReviewFragment"
     android:background="@color/white">
-
+    <com.example.william.courserater.VerticalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,14 +31,269 @@
                 android:text="TANA21"
                 android:gravity="center"/>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/marginSideStandard"
+        android:orientation="vertical">
 
-    
+        <TextView
+            android:id="@+id/review_usefulness_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Usefulness"/>
+        <RatingBar
+            android:id="@+id/review_usefulness_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_usefulness_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_difficulty_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Difficulty"/>
+        <RatingBar
+            android:id="@+id/review_difficulty_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_difficulty_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"  />
+
+        <TextView
+            android:id="@+id/review_lecture_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Lectures"/>
+        <RatingBar
+            android:id="@+id/review_lecture_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_lecture_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_lesson_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Lessons"/>
+        <RatingBar
+            android:id="@+id/review_lesson_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_lesson_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_exam_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Exam"/>
+        <RatingBar
+            android:id="@+id/review_exam_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_exam_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_laboratory_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Laboratory"/>
+        <RatingBar
+            android:id="@+id/review_laboratory_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_laboratory_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_semina_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Seminar"/>
+        <RatingBar
+            android:id="@+id/review_seminar_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_seminar_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_project_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Project"/>
+        <RatingBar
+            android:id="@+id/review_project_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_project_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+
+        <TextView
+            android:id="@+id/review_homeassignment_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Homeassignment"/>
+        <RatingBar
+            android:id="@+id/review_homeassignment_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_homeassignment_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left" />
+
+        <TextView
+            android:id="@+id/review_case_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_text_size"
+            android:text="Case"/>
+        <RatingBar
+            android:id="@+id/review_case_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
+        <EditText
+            android:id="@+id/review_case_comment"
+            android:layout_width="@dimen/edit_text_comment_width"
+            android:layout_height="@dimen/editTextCommentHeight"
+            android:background="@drawable/edit_text_box_comment"
+            android:hint="Comment"
+            android:gravity="top|left"
+            android:textSize="@dimen/edit_text_comment_text_size"
+            android:paddingLeft="@dimen/edit_text_comment_padding"
+            android:paddingRight="@dimen/edit_text_comment_padding"
+            android:layout_marginLeft="@dimen/review_margin_left"/>
 
 
+    </LinearLayout>
 
 
 
 
     </LinearLayout>
+    </com.example.william.courserater.VerticalScrollView>
 
 </FrameLayout>
