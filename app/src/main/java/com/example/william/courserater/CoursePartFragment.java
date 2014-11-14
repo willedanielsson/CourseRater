@@ -37,8 +37,6 @@ public class CoursePartFragment extends Fragment {
         coursePartTextView = (TextView) rootView.findViewById(R.id.course_part_text_view);
         coursePartTextView.setText(courseName+" - "+coursePart);
 
-        System.out.println(commentsArrayList);
-
         ArrayList<ItemComment> comments = new ArrayList<ItemComment>();
 
         final AdapterComment adapter = new AdapterComment(rootView.getContext(), comments);

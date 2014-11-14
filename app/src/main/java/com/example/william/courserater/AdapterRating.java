@@ -1,6 +1,7 @@
 package com.example.william.courserater;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class AdapterRating extends ArrayAdapter<ItemRating> {
         labelView.setText(itemRatingArrayList.get(position).getLabel());
         valueView.setText(value.toString());
         progressBar.setProgress(progressValue);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         return rowView;
     }
 }

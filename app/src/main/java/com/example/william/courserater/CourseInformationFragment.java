@@ -147,7 +147,6 @@ public class CourseInformationFragment extends Fragment {
                 }else if(clickedPart == "Case"){
                     clickedPartCommentList = groupList.get(7);
                 }
-                System.out.println(clickedPart);
                 if(clickedPart == "Usefulness"){}
                 else if(clickedPart == "Difficulty"){}
                 else{
@@ -296,7 +295,6 @@ public class CourseInformationFragment extends Fragment {
             sumOfValues = sumOfValues+informationRatingArrayList.get(4);
             numberOfValues++;
         }
-        System.out.println("calculating");
         Float averageScore;
         averageScore = sumOfValues/numberOfValues;
         double result = (double) Math.round(averageScore*10)/10;
