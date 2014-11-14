@@ -88,11 +88,29 @@ public class DataBaseHandler {
     }
 
 
-    public void uploadCourseData(final Activity activity, String university, String courseCode) {
+    public void uploadCourseData(final Activity activity,
+                                 String university,
+                                 String courseCode,
+                                 Boolean hasLecture,
+                                 Boolean hasLesson,
+                                 Boolean hasExam,
+                                 Boolean hasLaboratory,
+                                 Boolean hasSeminar,
+                                 Boolean hasProject,
+                                 Boolean hasHomeassignment,
+                                 Boolean hasCase) {
 
         RequestParams params = new RequestParams();
         params.put("university", university);
         params.put("courseCode", courseCode);
+        params.put("hasLecture", hasLecture);
+        params.put("hasLesson", hasLesson);
+        params.put("hasExam", hasExam);
+        params.put("hasLaboratory", hasLaboratory);
+        params.put("hasSeminar", hasSeminar);
+        params.put("hasProject", hasProject);
+        params.put("hasHomeassignment", hasHomeassignment);
+        params.put("hasCase", hasCase);
 
         HttpClient.post("addCourse.php", params, new JsonHttpResponseHandler(){
             @Override

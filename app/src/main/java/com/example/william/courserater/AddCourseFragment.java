@@ -192,11 +192,20 @@ public class AddCourseFragment extends Fragment {
         public void onClick(View view) {
             String university = universityEditText.getText().toString();
             String courseCode = courseEditText.getText().toString();
+            Boolean hasLecture = lectureCheckbox.isChecked();
+            Boolean hasLesson = lessonCheckbox.isChecked();
+            Boolean hasExam = examCheckbox.isChecked();
+            Boolean hasLaboratory = laboratoryCheckbox.isChecked();
+            Boolean hasSeminar = seminarCheckbox.isChecked();
+            Boolean hasProject = projectCheckbox.isChecked();
+            Boolean hasHomeassignment = homeassignmentCheckbox.isChecked();
+            Boolean hasCase = caseCheckbox.isChecked();
+
             boolean localIsCountrySet = getIsCountrySet();
             boolean localIsUniversitySet = getIsUniversitySet();
 
             if(localIsCountrySet==true && localIsUniversitySet==true && courseCode.length()!=0 ) {
-                dataBaseHandler.uploadCourseData(getActivity(), university, courseCode);
+                dataBaseHandler.uploadCourseData(getActivity(), university, courseCode, hasLecture, hasLesson, hasExam, hasLaboratory, hasSeminar, hasProject, hasHomeassignment, hasCase);
             }else if(localIsCountrySet==false){
                 Toast.makeText(getActivity(), "Choose country from list", Toast.LENGTH_LONG).show();
             }else if(localIsUniversitySet==false){
@@ -231,8 +240,8 @@ public class AddCourseFragment extends Fragment {
     }
 
     public void initCheckboxes(View rootView){
-        lectureCheckbox = (CheckBox) rootView.findViewById(R.id.lectures_checkbox);
-        lessonCheckbox = (CheckBox) rootView.findViewById(R.id.lessons_checkbox);
+        lectureCheckbox = (CheckBox) rootView.findViewById(R.id.lecture_checkbox);
+        lessonCheckbox = (CheckBox) rootView.findViewById(R.id.lesson_checkbox);
         examCheckbox = (CheckBox) rootView.findViewById(R.id.exam_checkbox);
         laboratoryCheckbox = (CheckBox) rootView.findViewById(R.id.laboratory_checkbox);
         seminarCheckbox = (CheckBox) rootView.findViewById(R.id.seminar_checkbox);

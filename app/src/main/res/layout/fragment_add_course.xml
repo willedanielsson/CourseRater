@@ -93,7 +93,7 @@
             android:layout_marginTop="@dimen/marginTopStandard">
 
             <CheckBox
-                android:id="@+id/lectures_checkbox"
+                android:id="@+id/lecture_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/checkboxBotMargin"
@@ -103,7 +103,7 @@
                 android:text="Lectures"/>
 
             <CheckBox
-                android:id="@+id/lessons_checkbox"
+                android:id="@+id/lesson_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/checkboxBotMargin"
